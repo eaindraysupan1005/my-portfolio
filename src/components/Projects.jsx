@@ -113,46 +113,46 @@ const projects = [
         color: 'from-amber-500/20 to-amber-500/5',
         border: 'border-amber-500/20',
         accent: '#d97706',
-        github: 'https://github.com/eaindraysupan1005/project-budget-bee',
-        live: 'https://project-budget-bee.vercel.app/',
+        github: 'https://github.com/eaindraysupan1005/budget-bee',
+        live: 'https://budgetbee.eaindraysupan.tech/',
     },
-    // {
-    //     title: 'Event & Ticketing Platform',
-    //     description:
-    //         'A role-based event management platform supporting attendees and organizers.',
-    //     bullets: [
-    //         'Implemented role-based access control for attendees and event organizers',
-    //         'Built TypeScript-based React frontend with protected routes',
-    //         'Developed ticket booking workflow with validation and data persistence',
-    //     ],
-    //     details: {
-    //         features: [
-    //             'Role-based access for attendees and organizers',
-    //             'Event creation, editing, and management for organizers',
-    //             'Ticket booking with validation and confirmation',
-    //             'Protected routes based on user role',
-    //             'Supabase-backed database for events and tickets',
-    //         ],
-    //         myTasks: [
-    //             'Implemented role-based access control (RBAC) for attendees and organizers',
-    //             'Designed RESTful APIs for event creation, ticket booking, and management',
-    //             'Structured Supabase schema for users, events, and ticket records',
-    //             'Built React frontend with TypeScript and protected role-based routes',
-    //             'Developed the ticket booking workflow with data validation and persistence',
-    //         ],
-    //         skillsLearned: [
-    //             'Role-Based Access Control', 'TypeScript', 'React', 'Supabase',
-    //             'REST API Design', 'Protected Routes', 'Database Schema Design',
-    //         ],
-    //     },
-    //     tags: ['React', 'TypeScript', 'Supabase', 'REST API'],
-    //     emoji: '🎟️',
-    //     color: 'from-blue-500/20 to-blue-500/5',
-    //     border: 'border-blue-500/20',
-    //     accent: '#3b82f6',
-    //     github: '#',
-    //     live: 'https://tickora.vercel.app/',
-    // },
+    {
+        title: 'Event & Ticketing Platform',
+        description:
+            'A role-based event management platform supporting attendees and organizers.',
+        bullets: [
+            'Implemented role-based access control for attendees and event organizers',
+            'Built TypeScript-based React frontend with protected routes',
+            'Developed ticket booking workflow with validation and data persistence',
+        ],
+        details: {
+            features: [
+                'Role-based access for attendees and organizers',
+                'Event creation, editing, and management for organizers',
+                'Ticket booking with validation and confirmation',
+                'Protected routes based on user role',
+                'Supabase-backed database for events and tickets',
+            ],
+            myTasks: [
+                'Implemented role-based access control for attendees and organizers',
+                'Designed RESTful APIs for event creation, ticket booking, and management',
+                'Structured Supabase schema for users, events, and ticket records',
+                'Built React frontend with TypeScript and protected role-based routes',
+                'Developed the ticket booking workflow with data validation and persistence',
+            ],
+            skillsLearned: [
+                'Role-Based Access Control', 'TypeScript', 'React', 'Supabase',
+                'REST API Design', 'Protected Routes', 'Database Schema Design',
+            ],
+        },
+        tags: ['React', 'TypeScript', 'Supabase', 'REST API'],
+        emoji: '🎟️',
+        color: 'from-blue-500/20 to-blue-500/5',
+        border: 'border-blue-500/20',
+        accent: '#3b82f6',
+        github: 'https://github.com/eaindraysupan1005/tickora',
+        live: 'https://tickora.eaindraysupan.tech/',
+    },
 ];
 
 // ── Modal ────────────────────────────────────────────────────────────────────
