@@ -77,7 +77,7 @@ export default function About() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                             {[
                                 ['📍', 'Location', 'Chiang Rai, Thailand'],
-                                ['📧', 'Email', 'eaindraychu32@gmail.com'],
+                                ['📧', 'Email', 'eaindraysupan@gmail.com'],
                                 ['🎓', 'Degree', 'B.Eng. Software Engineering'],
                                 ['🌐', 'Languages', 'Burmese, English, Thai'],
                             ].map(([icon, key, val]) => (

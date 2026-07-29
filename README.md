@@ -70,4 +70,4 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 ## 📧 Contact
 
-Eaindray Su Pan - [eaindraychu32@gmail.com](mailto:eaindraychu32@gmail.com)
+Eaindray Su Pan - [eaindraysupan@gmail.com](mailto:eaindraysupan@gmail.com)
