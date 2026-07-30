@@ -31,7 +31,8 @@ export default {
             : 'rgb(var(--color-text-rgb))',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans:  ['Manrope', 'system-ui', 'sans-serif'],
+        serif: ['Lora', 'Georgia', 'serif'],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
