@@ -4,6 +4,7 @@ const projects = [
     {
         title: 'Mental Health Monitoring App',
         description: 'A full-stack mobile app for daily mood tracking, mental health assessment, and predictive analysis using machine learning.',
+        cover: '/Mental_cover.jpg',
         team: '3-person team',
         bullets: [
             'Implemented JWT-based authentication and protected API routes',
@@ -43,6 +44,7 @@ const projects = [
     {
         title: 'Eco Habits Tracker & Campaign Platform',
         description: 'A sustainability-focused mobile app encouraging users to build eco-friendly habits and join environmental campaigns.',
+        cover: '/Eco_cover.jpg',
         team: '4-person team',
         bullets: [
             'Implemented Firebase Authentication for secure user login and registration',
@@ -80,7 +82,8 @@ const projects = [
     },
     {
         title: 'Personal Finance Tracker',
-        description: 'A full-stack personal finance app that helps users track income, expenses, budgets, and savings goals through a clean, visual dashboard.',
+        description: 'A full-stack finance management system for tracking income, expenses, budgets, and savings goals.',
+        cover: '/Budget_cover.jpg',
         team: '5-person team',
         bullets: [
             'Developed RESTful APIs using Spring Boot for financial data management',
@@ -264,66 +267,56 @@ function ProjectModal({ project, onClose }) {
 // ── Card content (shared between stack + grid renders) ──────────────────────
 function ProjectCardContent({ project, onViewDetails }) {
     return (
-        <div className={`glass rounded-2xl p-6 flex flex-col gap-4 bg-gradient-to-b ${project.color} border ${project.border} card-hover group h-full`}>
-            <div className="flex items-start justify-between">
-                <div className="flex flex-col gap-1.5">
-                    <span className="text-4xl">{project.emoji}</span>
-                    {project.team && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/8 border border-primary/20 text-[10px] font-medium text-textColor/60">
-                            👥 {project.team}
-                        </span>
-                    )}
-                </div>
-                <div className="flex gap-2">
-                    <a href={project.github} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-1.5 p-2 rounded-lg bg-primary/8 hover:bg-primary/15 text-textColor/60 hover:text-textColor transition-colors"
-                        title="GitHub">
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.579.688.481C19.137 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>
-                        <span className="text-xs font-medium">Github</span>
-                    </a>
-                    <a href={project.live} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-1.5 p-2 rounded-lg bg-primary/8 hover:bg-primary/15 text-textColor/60 hover:text-textColor transition-colors"
-                        title="Live Demo">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        <span className="text-xs font-medium">Live Demo</span>
-                    </a>
-                </div>
-            </div>
-
-            <div>
-                <h3 className="text-base font-bold text-textColor mb-2 group-hover:gradient-text transition-all">{project.title}</h3>
-                <p className="text-sm text-textColor/60 leading-relaxed">{project.description}</p>
-                {project.bullets && (
-                    <ul className="mt-2 space-y-1">
-                        {project.bullets.map((b, i) => (
-                            <li key={i} className="flex items-start gap-1.5 text-sm text-textColor/60">
-                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: project.accent + 'bb' }} />
-                                {b}
-                            </li>
-                        ))}
-                    </ul>
+        <div className={`glass rounded-2xl overflow-hidden flex flex-col bg-gradient-to-b ${project.color} border ${project.border} card-hover group h-full`}>
+            {/* Cover image (or gradient placeholder for projects without a cover) */}
+            <div className={`aspect-video w-full overflow-hidden bg-gradient-to-b ${project.color}`}>
+                {project.cover && (
+                    <img
+                        src={project.cover}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                    />
                 )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
-                {project.tags.map(tag => (
-                    <span key={tag} className="px-2.5 py-1 rounded-full text-xs font-medium border"
-                        style={{ borderColor: project.accent + '44', color: project.accent, backgroundColor: project.accent + '15' }}>
-                        {tag}
-                    </span>
-                ))}
-            </div>
+            {/* Card body */}
+            <div className="p-6 flex flex-col gap-4 flex-1">
+                <div>
+                    <h3 className="text-base font-bold text-textColor mb-2 group-hover:gradient-text transition-all">{project.title}</h3>
+                    <p className="text-sm text-textColor/60 leading-relaxed">{project.description}</p>
+                    {project.bullets && (
+                        <ul className="mt-2 space-y-1">
+                            {project.bullets.map((b, i) => (
+                                <li key={i} className="flex items-start gap-1.5 text-sm text-textColor/60">
+                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: project.accent + 'bb' }} />
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
 
-            <button
-                onClick={() => onViewDetails(project)}
-                className="mt-auto w-full py-2 rounded-xl text-sm font-semibold border border-primary/30 hover:border-primary/60 bg-primary/8 hover:bg-primary/15 text-textColor/70 hover:text-textColor transition-all duration-200 flex items-center justify-center gap-2 group/btn"
-            >
-                <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                View Details
-            </button>
+                <div className="flex flex-wrap gap-2">
+                    {project.tags.map(tag => (
+                        <span key={tag} className="px-2.5 py-1 rounded-full text-xs font-medium border"
+                            style={{ borderColor: project.accent + '44', color: project.accent, backgroundColor: project.accent + '15' }}>
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+
+                <button
+                    onClick={() => onViewDetails(project)}
+                    className="mt-auto w-full py-2 rounded-xl text-sm font-semibold border border-primary/30 hover:border-primary/60 bg-primary/8 hover:bg-primary/15 text-textColor/70 hover:text-textColor transition-all duration-200 flex items-center justify-center gap-2 group/btn"
+                >
+                    <svg className="w-3.5 h-3.5 opacity-60 group-hover/btn:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    View Details
+                </button>
+            </div>
         </div>
     );
 }
