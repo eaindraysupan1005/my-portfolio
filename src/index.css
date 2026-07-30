@@ -141,3 +141,29 @@
     linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-size: 50px 50px;
 }
+
+/* ══════════════════════════════════════════
+   Scroll Reveal — About section cards
+══════════════════════════════════════════ */
+
+.reveal-card {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   Projects — fade-in for the real grid
+   (used after the stack/spread animation)
+══════════════════════════════════════════ */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+

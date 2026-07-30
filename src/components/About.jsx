@@ -1,4 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+// Lightweight scroll-reveal hook
+function useReveal() {
+    const ref = useRef(null)
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { el.classList.add('revealed'); observer.disconnect() } },
+            { threshold: 0.15 }
+        )
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+    return ref
+}
+
+// Wrapper that fades-up when scrolled into view
+function RevealCard({ children, delay = 0 }) {
+    const ref = useReveal()
+    return (
+        <div
+            ref={ref}
+            className="reveal-card"
+            style={{ transitionDelay: `${delay}ms` }}
+        >
+            {children}
+        </div>
+    )
+}
 
 const timeline = [
     {
@@ -80,14 +110,16 @@ export default function About() {
                                 ['📧', 'Email', 'eaindraysupan@gmail.com'],
                                 ['🎓', 'Degree', 'B.Eng. Software Engineering'],
                                 ['🌐', 'Languages', 'Burmese, English, Thai'],
-                            ].map(([icon, key, val]) => (
-                                <div key={key} className="glass rounded-xl p-4 flex items-start gap-3 hover:border-primary/30 transition-colors">
-                                    <span className="text-xl">{icon}</span>
-                                    <div>
-                                        <div className="text-xs text-textColor/40 mb-0.5">{key}</div>
-                                        <div className="text-sm font-medium text-textColor/80">{val}</div>
+                            ].map(([icon, key, val], i) => (
+                                <RevealCard key={key} delay={i * 80}>
+                                    <div className="glass rounded-xl p-4 flex items-start gap-3 hover:border-primary/30 transition-colors h-full">
+                                        <span className="text-xl">{icon}</span>
+                                        <div>
+                                            <div className="text-xs text-textColor/40 mb-0.5">{key}</div>
+                                            <div className="text-sm font-medium text-textColor/80">{val}</div>
+                                        </div>
                                     </div>
-                                </div>
+                                </RevealCard>
                             ))}
                         </div>
 
@@ -105,7 +137,8 @@ export default function About() {
 
                             <div className="flex flex-col gap-8">
                                 {timeline.map((item, i) => (
-                                    <div key={i} className="relative pl-12">
+                                    <RevealCard key={i} delay={i * 120}>
+                                    <div className="relative pl-12">
                                         {/* Dot */}
                                         <div className="absolute left-2.5 top-1 w-3 h-3 rounded-full bg-background border-2 border-primary" />
                                         <div className="glass rounded-xl p-5 card-hover">
@@ -136,8 +169,10 @@ export default function About() {
                                                 </button>
                                             )}
                                         </div>
-                                    </div>
+                                        </div>
+                                    </RevealCard>
                                 ))}
+
                             </div>
                         </div>
                         <a

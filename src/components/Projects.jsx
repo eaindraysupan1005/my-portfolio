@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const projects = [
     {
@@ -114,46 +114,46 @@ const projects = [
         border: 'border-amber-500/20',
         accent: '#d97706',
         github: 'https://github.com/eaindraysupan1005/budget-bee',
-        live: 'https://budgetbee.eaindraysupan.tech/',
+        live: 'https://project-budget-bee.vercel.app/',
     },
-    {
-        title: 'Event & Ticketing Platform',
-        description:
-            'A role-based event management platform supporting attendees and organizers.',
-            team: '4b-person team',
-        bullets: [
-            'Implemented role-based access control for attendees and event organizers',
-            'Built TypeScript-based React frontend with protected routes',
-            'Developed ticket booking workflow with validation and data persistence',
-        ],
-        details: {
-            features: [
-                'Role-based access for attendees and organizers',
-                'Event creation, editing, and management for organizers',
-                'Ticket booking with validation and confirmation',
-                'Protected routes based on user role',
-                'Supabase-backed database for events and tickets',
-            ],
-            myTasks: [
-                'Implemented role-based access control for attendees and organizers',
-                'Designed RESTful APIs for event creation, ticket booking, and management',
-                'Structured Supabase schema for users, events, and ticket records',
-                'Built React frontend with TypeScript and protected role-based routes',
-                'Developed the ticket booking workflow with data validation and persistence',
-            ],
-            skillsLearned: [
-                'Role-Based Access Control', 'TypeScript', 'React', 'Supabase',
-                'REST API Design', 'Protected Routes', 'Database Schema Design',
-            ],
-        },
-        tags: ['React', 'TypeScript', 'Supabase', 'REST API'],
-        emoji: '🎟️',
-        color: 'from-blue-500/20 to-blue-500/5',
-        border: 'border-blue-500/20',
-        accent: '#3b82f6',
-        github: 'https://github.com/eaindraysupan1005/tickora',
-        live: 'https://tickora.eaindraysupan.tech/',
-    },
+    // {
+    //     title: 'Event & Ticketing Platform',
+    //     description:
+    //         'A role-based event management platform supporting attendees and organizers.',
+    //         team: '4-person team',
+    //     bullets: [
+    //         'Implemented role-based access control for attendees and event organizers',
+    //         'Built TypeScript-based React frontend with protected routes',
+    //         'Developed ticket booking workflow with validation and data persistence',
+    //     ],
+    //     details: {
+    //         features: [
+    //             'Role-based access for attendees and organizers',
+    //             'Event creation, editing, and management for organizers',
+    //             'Ticket booking with validation and confirmation',
+    //             'Protected routes based on user role',
+    //             'Supabase-backed database for events and tickets',
+    //         ],
+    //         myTasks: [
+    //             'Implemented role-based access control for attendees and organizers',
+    //             'Designed RESTful APIs for event creation, ticket booking, and management',
+    //             'Structured Supabase schema for users, events, and ticket records',
+    //             'Built React frontend with TypeScript and protected role-based routes',
+    //             'Developed the ticket booking workflow with data validation and persistence',
+    //         ],
+    //         skillsLearned: [
+    //             'Role-Based Access Control', 'TypeScript', 'React', 'Supabase',
+    //             'REST API Design', 'Protected Routes', 'Database Schema Design',
+    //         ],
+    //     },
+    //     tags: ['React', 'TypeScript', 'Supabase', 'REST API'],
+    //     emoji: '🎟️',
+    //     color: 'from-blue-500/20 to-blue-500/5',
+    //     border: 'border-blue-500/20',
+    //     accent: '#3b82f6',
+    //     github: 'https://github.com/eaindraysupan1005/tickora',
+    //     live: 'https://tickora.eaindraysupan.tech/',
+    // },
 ];
 
 // ── Modal ────────────────────────────────────────────────────────────────────
@@ -261,10 +261,10 @@ function ProjectModal({ project, onClose }) {
     );
 }
 
-// ── Card ─────────────────────────────────────────────────────────────────────
-function ProjectCard({ project, onViewDetails }) {
+// ── Card content (shared between stack + grid renders) ──────────────────────
+function ProjectCardContent({ project, onViewDetails }) {
     return (
-        <div className={`glass rounded-2xl p-6 flex flex-col gap-4 bg-gradient-to-b ${project.color} border ${project.border} card-hover group`}>
+        <div className={`glass rounded-2xl p-6 flex flex-col gap-4 bg-gradient-to-b ${project.color} border ${project.border} card-hover group h-full`}>
             <div className="flex items-start justify-between">
                 <div className="flex flex-col gap-1.5">
                     <span className="text-4xl">{project.emoji}</span>
@@ -275,23 +275,15 @@ function ProjectCard({ project, onViewDetails }) {
                     )}
                 </div>
                 <div className="flex gap-2">
-                    <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
+                    <a href={project.github} target="_blank" rel="noreferrer"
                         className="flex items-center gap-1.5 p-2 rounded-lg bg-primary/8 hover:bg-primary/15 text-textColor/60 hover:text-textColor transition-colors"
-                        title="GitHub"
-                    >
+                        title="GitHub">
                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.579.688.481C19.137 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>
                         <span className="text-xs font-medium">Github</span>
                     </a>
-                    <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
+                    <a href={project.live} target="_blank" rel="noreferrer"
                         className="flex items-center gap-1.5 p-2 rounded-lg bg-primary/8 hover:bg-primary/15 text-textColor/60 hover:text-textColor transition-colors"
-                        title="Live Demo"
-                    >
+                        title="Live Demo">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                         <span className="text-xs font-medium">Live Demo</span>
                     </a>
@@ -315,17 +307,13 @@ function ProjectCard({ project, onViewDetails }) {
 
             <div className="flex flex-wrap gap-2">
                 {project.tags.map(tag => (
-                    <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-full text-xs font-medium border"
-                        style={{ borderColor: project.accent + '44', color: project.accent, backgroundColor: project.accent + '15' }}
-                    >
+                    <span key={tag} className="px-2.5 py-1 rounded-full text-xs font-medium border"
+                        style={{ borderColor: project.accent + '44', color: project.accent, backgroundColor: project.accent + '15' }}>
                         {tag}
                     </span>
                 ))}
             </div>
 
-            {/* View Details button */}
             <button
                 onClick={() => onViewDetails(project)}
                 className="mt-auto w-full py-2 rounded-xl text-sm font-semibold border border-primary/30 hover:border-primary/60 bg-primary/8 hover:bg-primary/15 text-textColor/70 hover:text-textColor transition-all duration-200 flex items-center justify-center gap-2 group/btn"
@@ -341,11 +329,35 @@ function ProjectCard({ project, onViewDetails }) {
 }
 
 // ── Section ───────────────────────────────────────────────────────────────────
+// phase: 'idle' → 'spreading' → 'fading' → 'grid'
 export default function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
+    const [phase, setPhase] = useState('idle');
+    const sectionRef = useRef(null);
+
+    const stackProjects = projects.slice(0, 3);  // first row only
+    const extraProjects  = projects.slice(3);      // rest go below
+    const stackTotal = stackProjects.length;        // 3
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(([entry]) => {
+            if (!entry.isIntersecting) return;
+            // Skip animation if not desktop (where 3-col grid is active)
+            if (window.innerWidth < 1024) { setPhase('grid'); observer.disconnect(); return; }
+            setPhase('spreading');
+            setTimeout(() => setPhase('grid'), 1350);
+            observer.disconnect();
+        }, { threshold: 0.15 });
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+
+    // Unused fixed width - we use relative % width now
 
     return (
-        <section id="projects" className="section-padding">
+        <section ref={sectionRef} id="projects" className="section-padding">
             <div className="max-w-7xl mx-auto">
                 {/* Title */}
                 <div className="text-center mb-16">
@@ -360,23 +372,80 @@ export default function Projects() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map(project => (
-                        <ProjectCard
-                            key={project.title}
-                            project={project}
-                            onViewDetails={setSelectedProject}
-                        />
-                    ))}
-                </div>
+                {/* ── Stack / Spread phase ────────────────────────────────
+                    Row 1: 3 spread cards (absolute on top of ghost grid).
+                    Row 2+: any extra projects shown in a normal grid below.
+                    Keeping the extra cards visible during the spread means
+                    the container height matches the final grid → no jump. */}
+                {phase !== 'grid' && (
+                    <div>
+                        <div style={{
+                            position:   'relative',
+                            overflow:   'visible',
+                        }}>
+                            {/* Ghost grid to force row 1 height */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ visibility: 'hidden', pointerEvents: 'none' }}>
+                                {stackProjects.map(project => (
+                                    <ProjectCardContent key={`ghost-${project.title}`} project={project} onViewDetails={() => {}} />
+                                ))}
+                            </div>
+
+                            {stackProjects.map((project, i) => {
+                                const offset    = i - (stackTotal - 1) / 2;  // -1, 0, +1
+                                const spreading = phase !== 'idle';
+
+                                // calc(33.333% - 16px) matches 3 columns with 24px (1.5rem) gap.
+                                // 100% in tx refers to the card's own width.
+                                const tx     = spreading ? `calc(-50% + ${offset} * calc(100% + 24px))` : '-50%';
+                                const rotate = spreading ? '0deg' : `${offset * 8}deg`;
+                                const topPx  = spreading ? 0 : -Math.abs(offset) * 14;
+                                const delay  = Math.abs(offset) * 110;
+
+                                return (
+                                    <div key={project.title} style={{
+                                        position:   'absolute',
+                                        width:      'calc(33.333% - 16px)',
+                                        left:       '50%',
+                                        top:        `${topPx}px`,
+                                        transform:  `translateX(${tx}) rotate(${rotate})`,
+                                        transition: `transform 1.35s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms,
+                                                     top      1.35s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+                                        zIndex:     stackTotal - Math.round(Math.abs(offset)),
+                                        willChange: 'transform',
+                                    }}>
+                                        <ProjectCardContent project={project} onViewDetails={setSelectedProject} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Row 2+ — extra projects stay in normal flow so total
+                            height matches the final grid (no layout shift). */}
+                        {extraProjects.length > 0 && (
+                            <>
+                                <div style={{ height: '24px' }} />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {extraProjects.map(project => (
+                                        <ProjectCardContent key={project.title} project={project} onViewDetails={setSelectedProject} />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                )}
+
+                {/* ── Real grid (replaces the spread instantly) ───────── */}
+                {phase === 'grid' && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {projects.map(project => (
+                            <ProjectCardContent key={project.title} project={project} onViewDetails={setSelectedProject} />
+                        ))}
+                    </div>
+                )}
 
                 <div className="text-center mt-12">
-                    <a
-                        href="https://github.com"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200"
-                    >
+                    <a href="https://github.com/eaindraysupan1005" target="_blank" rel="noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200">
                         See all projects on GitHub
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </a>
@@ -385,10 +454,7 @@ export default function Projects() {
 
             {/* Modal */}
             {selectedProject && (
-                <ProjectModal
-                    project={selectedProject}
-                    onClose={() => setSelectedProject(null)}
-                />
+                <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
             )}
         </section>
     );

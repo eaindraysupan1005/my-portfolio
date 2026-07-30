@@ -1,5 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser'
+
+// Lightweight scroll-reveal hook (matches About section)
+function useReveal() {
+    const ref = useRef(null)
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { el.classList.add('revealed'); observer.disconnect() } },
+            { threshold: 0.15 }
+        )
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+    return ref
+}
+
+function Reveal({ children, delay = 0 }) {
+    const ref = useReveal()
+    return (
+        <div ref={ref} className="reveal-card" style={{ transitionDelay: `${delay}ms` }}>
+            {children}
+        </div>
+    )
+}
 
 const socials = [
     {
@@ -64,136 +89,144 @@ export default function Contact() {
 
             <div className="max-w-6xl mx-auto relative z-10">
                 {/* Title */}
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-4">
-                        📬 Get In Touch
+                <Reveal>
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-4">
+                            📬 Get In Touch
+                        </div>
+                        <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
+                            Let's <span className="gradient-text">Work Together</span>
+                        </h2>
+                        <p className="text-textColor/60 max-w-xl mx-auto">
+                            Have an idea you want to build? Let’s chat. Drop me a line here or find me on social media.
+                        </p>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
-                        Let's <span className="gradient-text">Work Together</span>
-                    </h2>
-                    <p className="text-textColor/60 max-w-xl mx-auto">
-                        Have an idea you want to build? Let’s chat. Drop me a line here or find me on social media.
-                    </p>
-                </div>
+                </Reveal>
 
                 <div className="grid lg:grid-cols-5 gap-6 lg:gap-10">
                     {/* Left - Info */}
                     <div className="lg:col-span-2 flex flex-col gap-6">
-                        <div className="glass rounded-2xl p-6">
-                            <h3 className="text-lg font-bold text-textColor mb-4">Contact Info</h3>
-                            <div className="flex flex-col gap-4">
-                                {[
-                                    ['📍', 'Location', 'Chiang Rai, Thailand, 57100'],
-                                    ['📧', 'Email', 'eaindraysupan@gmail.com'],
-                                    ['📱', 'Phone', '+66(0)96-803-0653'],
-                                    ['💼', 'Status', 'Open to Internship Opportunities']
-                                ].map(([icon, label, val]) => (
-                                    <div key={label} className="flex items-center gap-3">
-                                        <span className="text-xl">{icon}</span>
-                                        <div>
-                                            <div className="text-xs text-textColor/40">{label}</div>
-                                            <div className="text-sm font-medium text-textColor/80">{val}</div>
+                        <Reveal delay={80}>
+                            <div className="glass rounded-2xl p-6">
+                                <h3 className="text-lg font-bold text-textColor mb-4">Contact Info</h3>
+                                <div className="flex flex-col gap-4">
+                                    {[
+                                        ['📍', 'Location', 'Chiang Rai, Thailand, 57100'],
+                                        ['📧', 'Email', 'eaindraysupan@gmail.com'],
+                                        ['📱', 'Phone', '+66(0)96-803-0653'],
+                                        ['💼', 'Status', 'Open to Internship Opportunities']
+                                    ].map(([icon, label, val]) => (
+                                        <div key={label} className="flex items-center gap-3">
+                                            <span className="text-xl">{icon}</span>
+                                            <div>
+                                                <div className="text-xs text-textColor/40">{label}</div>
+                                                <div className="text-sm font-medium text-textColor/80">{val}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        </Reveal>
 
                         {/* Socials */}
-                        <div className="glass rounded-2xl p-6">
-                            <h3 className="text-base font-bold text-textColor mb-4">Find Me On</h3>
-                            <div className="flex gap-3">
-                                {socials.map(s => (
-                                    <a
-                                        key={s.label}
-                                        href={s.href}
-                                        title={s.label}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center py-3 rounded-xl border border-primary/30 text-primary hover:text-textColor hover:border-primary/60 hover:bg-primary/10 transition-all duration-200"
-                                    >
-                                        {s.icon}
-                                    </a>
-                                ))}
+                        <Reveal delay={160}>
+                            <div className="glass rounded-2xl p-6">
+                                <h3 className="text-base font-bold text-textColor mb-4">Find Me On</h3>
+                                <div className="flex gap-3">
+                                    {socials.map(s => (
+                                        <a
+                                            key={s.label}
+                                            href={s.href}
+                                            title={s.label}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="flex-1 flex items-center justify-center py-3 rounded-xl border border-primary/30 text-primary hover:text-textColor hover:border-primary/60 hover:bg-primary/10 transition-all duration-200"
+                                        >
+                                            {s.icon}
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        </Reveal>
                     </div>
 
                     {/* Right - Form */}
                     <div className="lg:col-span-3">
-                        {sent ? (
-                            <div className="glass rounded-2xl p-10 flex flex-col items-center justify-center text-center h-full min-h-64 gap-4">
-                                <span className="text-5xl">🎉</span>
-                                <h3 className="text-2xl font-bold gradient-text">Message Sent!</h3>
-                                <p className="text-textColor/60">Thanks for reaching out. I'll get back to you within 24 hours.</p>
-                                <button onClick={() => setSent(false)} className="mt-2 px-5 py-2 rounded-lg border border-primary/30 text-primary text-sm hover:bg-primary/10 transition-colors">
-                                    Send another
-                                </button>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-8 flex flex-col gap-5">
-                                <div className="grid sm:grid-cols-2 gap-5">
-                                    {[
-                                        { name: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' },
-                                        { name: 'email', label: 'Email Address', type: 'email', placeholder: 'john@example.com' },
-                                    ].map(field => (
-                                        <div key={field.name}>
-                                            <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">{field.label}</label>
-                                            <input
-                                                type={field.type}
-                                                name={field.name}
-                                                value={form[field.name]}
-                                                onChange={handleChange}
-                                                placeholder={field.placeholder}
-                                                required
-                                                className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
-                                            />
-                                        </div>
-                                    ))}
+                        <Reveal delay={120}>
+                            {sent ? (
+                                <div className="glass rounded-2xl p-10 flex flex-col items-center justify-center text-center h-full min-h-64 gap-4">
+                                    <span className="text-5xl">🎉</span>
+                                    <h3 className="text-2xl font-bold gradient-text">Message Sent!</h3>
+                                    <p className="text-textColor/60">Thanks for reaching out. I'll get back to you within 24 hours.</p>
+                                    <button onClick={() => setSent(false)} className="mt-2 px-5 py-2 rounded-lg border border-primary/30 text-primary text-sm hover:bg-primary/10 transition-colors">
+                                        Send another
+                                    </button>
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">Subject</label>
-                                    <input
-                                        type="text"
-                                        name="subject"
-                                        value={form.subject}
-                                        onChange={handleChange}
-                                        placeholder="Project Inquiry"
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">Message</label>
-                                    <textarea
-                                        name="message"
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        placeholder="Tell me about your project..."
-                                        rows={5}
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all resize-none"
-                                    />
-                                </div>
-                                <button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                                >
-                                    {loading ? (
-                                        <>
-                                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            Sending...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Send Message
-                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
-                                        </>
-                                    )}
-                                </button>
-                            </form>
-                        )}
+                            ) : (
+                                <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-8 flex flex-col gap-5">
+                                    <div className="grid sm:grid-cols-2 gap-5">
+                                        {[
+                                            { name: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' },
+                                            { name: 'email', label: 'Email Address', type: 'email', placeholder: 'john@example.com' },
+                                        ].map(field => (
+                                            <div key={field.name}>
+                                                <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">{field.label}</label>
+                                                <input
+                                                    type={field.type}
+                                                    name={field.name}
+                                                    value={form[field.name]}
+                                                    onChange={handleChange}
+                                                    placeholder={field.placeholder}
+                                                    required
+                                                    className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">Subject</label>
+                                        <input
+                                            type="text"
+                                            name="subject"
+                                            value={form.subject}
+                                            onChange={handleChange}
+                                            placeholder="Project Inquiry"
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-textColor/50 mb-2 uppercase tracking-wider">Message</label>
+                                        <textarea
+                                            name="message"
+                                            value={form.message}
+                                            onChange={handleChange}
+                                            placeholder="Tell me about your project..."
+                                            rows={5}
+                                            required
+                                            className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all resize-none"
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                Sending...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Send Message
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            )}
+                        </Reveal>
                     </div>
                 </div>
             </div>
