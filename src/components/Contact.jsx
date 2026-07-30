@@ -65,7 +65,7 @@ export default function Contact() {
             <div className="max-w-6xl mx-auto relative z-10">
                 {/* Title */}
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 text-accent text-sm font-medium mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-4">
                         📬 Get In Touch
                     </div>
                     <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
@@ -110,7 +110,7 @@ export default function Contact() {
                                         title={s.label}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center py-3 rounded-xl border border-white/10 text-textColor/60 hover:text-textColor hover:border-primary/40 hover:bg-primary/10 transition-all duration-200"
+                                        className="flex-1 flex items-center justify-center py-3 rounded-xl border border-primary/30 text-primary hover:text-textColor hover:border-primary/60 hover:bg-primary/10 transition-all duration-200"
                                     >
                                         {s.icon}
                                     </a>
@@ -146,7 +146,7 @@ export default function Contact() {
                                                 onChange={handleChange}
                                                 placeholder={field.placeholder}
                                                 required
-                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                                                className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
                                             />
                                         </div>
                                     ))}
@@ -160,7 +160,7 @@ export default function Contact() {
                                         onChange={handleChange}
                                         placeholder="Project Inquiry"
                                         required
-                                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
+                                        className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -172,7 +172,7 @@ export default function Contact() {
                                         placeholder="Tell me about your project..."
                                         rows={5}
                                         required
-                                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all resize-none"
+                                        className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/25 text-textColor text-sm placeholder-textColor/30 focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-all resize-none"
                                     />
                                 </div>
                                 <button

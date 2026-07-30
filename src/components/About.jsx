@@ -55,7 +55,7 @@ export default function About() {
             <div className="max-w-7xl mx-auto">
                 {/* Title */}
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 text-accent text-sm font-medium mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-4">
                         👤 About Me
                     </div>
                     <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
@@ -159,11 +159,12 @@ export default function About() {
                     onClick={closeCert}
                 >
                     <div
-                        className="relative w-full max-w-4xl max-h-[85vh] glass rounded-2xl overflow-hidden flex flex-col"
+                        className="relative w-full max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col border border-primary/20"
                         onClick={(e) => e.stopPropagation()}
+                        style={{ background: 'var(--color-bg)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
                     >
                         {/* Modal Header */}
-                        <div className="flex items-center justify-between px-5 py-3 border-b border-white/10">
+                        <div className="flex items-center justify-between px-5 py-3 border-b border-primary/15">
                             <span className="text-sm font-semibold text-textColor flex items-center gap-2 min-w-0">
                                 <svg className="w-4 h-4 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -172,7 +173,7 @@ export default function About() {
                             </span>
                             <button
                                 onClick={closeCert}
-                                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 text-textColor/60 hover:text-textColor transition-all shrink-0"
+                                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-primary/10 text-textColor/60 hover:text-textColor transition-all shrink-0"
                             >
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -191,7 +192,7 @@ export default function About() {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="flex justify-center gap-3 px-5 py-3 border-t border-white/10">
+                        <div className="flex justify-center gap-3 px-5 py-3 border-t border-primary/15">
                             <a
                                 href={certUrl}
                                 download
@@ -204,7 +205,7 @@ export default function About() {
                             </a>
                             <button
                                 onClick={closeCert}
-                                className="inline-flex items-center px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-textColor/60 hover:text-textColor text-xs font-semibold transition-all"
+                                className="inline-flex items-center px-4 py-1.5 rounded-lg bg-primary/10 hover:bg-primary/20 border border-primary/20 text-textColor/60 hover:text-textColor text-xs font-semibold transition-all"
                             >
                                 Close
                             </button>

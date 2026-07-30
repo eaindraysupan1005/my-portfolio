@@ -4,6 +4,69 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ══════════════════════════════════════════
+   CSS Custom Properties — Theme Variables
+   Colors stored as R G B channels so that
+   Tailwind's /opacity modifier (bg-primary/10)
+   works correctly.
+══════════════════════════════════════════ */
+
+/* Light mode (default) */
+:root {
+  /* skyblue primary: #38BDF8  → 56 189 248  */
+  --color-primary-rgb: 56, 189, 248;
+  /* navy accent: #0F3460      → 15  52  96  */
+  --color-accent-rgb:  15, 52, 96;
+  /* background: white         → 255 255 255 */
+  --color-bg-rgb:      255, 255, 255;
+  /* text: near-black          → 15  23  42  */
+  --color-text-rgb:    15, 23, 42;
+
+  --color-bg:            rgb(var(--color-bg-rgb));
+  --color-primary:       rgb(var(--color-primary-rgb));
+  --color-accent:        rgb(var(--color-accent-rgb));
+  --color-text:          rgb(var(--color-text-rgb));
+  --color-text-muted:    rgba(var(--color-accent-rgb), 0.55);
+  --color-glass-bg:      rgba(var(--color-primary-rgb), 0.06);
+  --color-glass-border:  rgba(var(--color-primary-rgb), 0.22);
+  --color-grid-line:     rgba(var(--color-primary-rgb), 0.08);
+  --scrollbar-track:     #e0f2fe;
+  --scrollbar-thumb:     rgb(var(--color-primary-rgb));
+  --scrollbar-thumb-hover: rgb(var(--color-accent-rgb));
+  --card-shadow:         0 2px 16px 0 rgba(15, 52, 96, 0.10), 0 1px 4px 0 rgba(56, 189, 248, 0.08);
+  --nav-shadow:          0 2px 12px 0 rgba(15, 52, 96, 0.10);
+}
+
+/* Dark mode */
+.dark {
+  /* blue primary: #3B82F6    → 59  130 246 */
+  --color-primary-rgb: 59, 130, 246;
+  /* cyan accent: #22D3EE     → 34  211 238 */
+  --color-accent-rgb:  34, 211, 238;
+  /* dark bg: #0F172A         → 15  23  42  */
+  --color-bg-rgb:      15, 23, 42;
+  /* text: near-white         → 241 245 249 */
+  --color-text-rgb:    241, 245, 249;
+
+  --color-bg:            rgb(var(--color-bg-rgb));
+  --color-primary:       rgb(var(--color-primary-rgb));
+  --color-accent:        rgb(var(--color-accent-rgb));
+  --color-text:          rgb(var(--color-text-rgb));
+  --color-text-muted:    rgba(var(--color-text-rgb), 0.55);
+  --color-glass-bg:      rgba(var(--color-bg-rgb), 0.80);
+  --color-glass-border:  rgba(var(--color-primary-rgb), 0.15);
+  --color-grid-line:     rgba(var(--color-primary-rgb), 0.05);
+  --scrollbar-track:     #0F172A;
+  --scrollbar-thumb:     rgb(var(--color-primary-rgb));
+  --scrollbar-thumb-hover: rgb(var(--color-accent-rgb));
+  --card-shadow:         none;
+  --nav-shadow:          none;
+}
+
+/* ══════════════════════════════════════════
+   Base
+══════════════════════════════════════════ */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -11,68 +74,70 @@
   }
 
   body {
-    @apply bg-background text-textColor font-sans antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    @apply font-sans antialiased;
     overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 }
+
+/* ══════════════════════════════════════════
+   Utilities
+══════════════════════════════════════════ */
 
 @layer utilities {
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   .glass {
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--color-glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(59, 130, 246, 0.15);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s ease;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
   }
 
   .section-padding {
-    @apply py-16 px-4 sm:py-20 sm:px-6 lg:px-8;
+    @apply py-10 px-4 sm:py-14 sm:px-6 lg:px-8;
   }
 }
 
-/* Hide scrollbar on mobile */
+/* ══════════════════════════════════════════
+   Scrollbar
+══════════════════════════════════════════ */
+
 @media (max-width: 639px) {
-  * {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-  }
-  *::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
+  * { scrollbar-width: none; -ms-overflow-style: none; }
+  *::-webkit-scrollbar { display: none; }
 }
 
-/* Custom scrollbar — desktop only */
 @media (min-width: 640px) {
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0F172A;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #3B82F6;
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #22D3EE;
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track  { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb  { background: var(--scrollbar-thumb); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 }
 
-/* Animated background grid */
+/* ══════════════════════════════════════════
+   Animated Background Grid
+══════════════════════════════════════════ */
+
 .bg-grid {
   background-image:
-    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-size: 50px 50px;
 }
