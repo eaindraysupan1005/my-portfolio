@@ -114,7 +114,7 @@ const projects = [
         border: 'border-amber-500/20',
         accent: '#d97706',
         github: 'https://github.com/eaindraysupan1005/budget-bee',
-        live: 'https://project-budget-bee.vercel.app/',
+        live: 'https://budgetbee.eaindraysupan.tech/',
     },
     // {
     //     title: 'Event & Ticketing Platform',
