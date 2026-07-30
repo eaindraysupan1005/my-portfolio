@@ -80,7 +80,7 @@ const projects = [
     },
     {
         title: 'Personal Finance Tracker',
-        description: 'A full-stack finance management system for tracking income, expenses, budgets, and savings goals.',
+        description: 'A full-stack personal finance app that helps users track income, expenses, budgets, and savings goals through a clean, visual dashboard.',
         team: '5-person team',
         bullets: [
             'Developed RESTful APIs using Spring Boot for financial data management',
