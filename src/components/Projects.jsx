@@ -37,7 +37,7 @@ const projects = [
         color: 'from-indigo-500/20 to-indigo-500/5',
         border: 'border-indigo-500/20',
         accent: '#6366f1',
-        github: 'https://github.com/kyuthin74/lumora_backend',
+        github: 'https://github.com/kyuthin74/Lumora',
         live: '#',
     },
     {
