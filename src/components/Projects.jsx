@@ -39,7 +39,7 @@ const projects = [
         border: 'border-indigo-500/20',
         accent: '#6366f1',
         github: 'https://github.com/kyuthin74/Lumora',
-        live: '#',
+        live: 'https://www.youtube.com/watch?v=P3KV9fcySvk',
     },
     {
         title: 'Eco Habits Tracker & Campaign Platform',
